@@ -6,7 +6,7 @@ from split_nodes import (
 from textnode import TextNode, TextType
 
 
-def text_to_textnodes(text: str):
+def text_to_textnodes(text: str) -> list[TextNode]:
     result = [TextNode(text, TextType.TEXT)]
     result = split_nodes_delimiter(result, "**", TextType.BOLD)
     result = split_nodes_delimiter(result, "_", TextType.ITALIC)

@@ -11,7 +11,8 @@ class BlockType(Enum):
     ORDERED_LIST = "ordered_list"
 
 
-def block_to_block_type(block: str):
+def block_to_block_type(block: str) -> BlockType:
+    block = block.lstrip()
     if re.fullmatch(r"#{1,6} .+", block):
         return BlockType.HEADING
     if len(block) >= 6 and block.startswith("```") and block.endswith("```"):
@@ -20,14 +21,7 @@ def block_to_block_type(block: str):
         return BlockType.QUOTE
     if block.startswith("- "):
         return BlockType.UNORDERED_LIST
-    is_ordered_list = True
-    list_pos = 1
-    for line in block.split("\n"):
-        if not line.startswith(f"{list_pos}. "):
-            is_ordered_list = False
-            break
-        list_pos += 1
-    if is_ordered_list:
+    if block.startswith("1. "):
         return BlockType.ORDERED_LIST
 
     return BlockType.PARAGRAPH

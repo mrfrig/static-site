@@ -67,19 +67,20 @@ multi line paragraph"""
         result = block_to_block_type("1. Item 1")
         self.assertEqual(result, BlockType.ORDERED_LIST)
         result = block_to_block_type(
-            """1. Item 1
+            """
+            1. Item 1
 2. Item 2
+3. Item 3"""
+        )
+        self.assertEqual(result, BlockType.ORDERED_LIST)
+        result = block_to_block_type(
+            """1. Item 1
 3. Item 3"""
         )
         self.assertEqual(result, BlockType.ORDERED_LIST)
 
     def test_invalid_ordered_list_blocks(self):
         result = block_to_block_type("2. Item")
-        self.assertNotEqual(result, BlockType.ORDERED_LIST)
-        result = block_to_block_type(
-            """1. Item 1
-3. Item 3"""
-        )
         self.assertNotEqual(result, BlockType.ORDERED_LIST)
 
 
